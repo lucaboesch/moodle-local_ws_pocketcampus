@@ -26,7 +26,7 @@ define('AJAX_SCRIPT', true);
 define('REQUIRE_CORRECT_ACCESS', true);
 define('NO_MOODLE_COOKIES', true);
 
-require_once(dirname(dirname(__FILE__)) . '../../config.php');
+require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/externallib.php');
 
 $pcid = required_param('pcsecret', PARAM_RAW);
