@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['invalidsecret'] = 'The secret is invalid.';
 $string['secret'] = 'PocketCampus secret';
 $string['secretdesc'] = 'The PocketCampus secret';
 $string['pluginname'] = 'BFH PocketCampus Authentication Webservice';
