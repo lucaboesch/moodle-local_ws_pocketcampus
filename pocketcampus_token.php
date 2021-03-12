@@ -30,7 +30,7 @@ require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/externallib.php');
 
 $pcid = required_param('pcsecret', PARAM_RAW);
-$userid = required_param('user_id', PARAM_ALPHANUMEXT);
+$userid = required_param('user_id', PARAM_RAW);
 $serviceshortname  = required_param('service',  PARAM_ALPHANUMEXT);
 $config = get_config('local_ws_pocketcampus');
 
@@ -47,7 +47,7 @@ if (empty($service)) {
 }
 
 if ($pcid === $config->secret) {
-    $user = get_complete_user_data('username', $userid);
+    $user = get_complete_user_data('username', $userid, null, true);
 } else {
     throw new moodle_exception('invalidsecret', 'local_ws_pocketcampus');
 }
@@ -82,7 +82,7 @@ if (!empty($user)) {
     $usertoken = new stdClass;
     $usertoken->token = $token->token;
     // Private token, only transmitted to https sites and non-admin users.
-    $siteadmin = has_capability('moodle/site:config', $systemcontext, $USER->id);
+    $siteadmin = has_capability('moodle/site:config', $systemcontext, $user->id);
     if (is_https() and !$siteadmin) {
         $usertoken->privatetoken = $token->privatetoken;
     } else {
