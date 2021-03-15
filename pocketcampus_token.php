@@ -28,6 +28,7 @@ define('NO_MOODLE_COOKIES', true);
 
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/externallib.php');
+require_once($CFG->libdir . '/moodlelib.php');
 
 $pcid = required_param('pcsecret', PARAM_RAW);
 $userid = required_param('user_id', PARAM_RAW);
@@ -35,6 +36,13 @@ $serviceshortname  = required_param('service',  PARAM_ALPHANUMEXT);
 $config = get_config('local_ws_pocketcampus');
 
 echo $OUTPUT->header();
+
+// Check if the IP the request comes from is valid.
+if (isset($config->subnet) AND (trim($config->subnet) != '')) {
+    if (!(address_in_subnet(getremoteaddr(), $config->subnet))) {
+        throw new moodle_exception('invalidsubnet', 'local_ws_pocketcampus');
+    }
+}
 
 // Check if the service exists and is enabled.
 $service = $DB->get_record('external_services', array('shortname' => $serviceshortname, 'enabled' => 1));

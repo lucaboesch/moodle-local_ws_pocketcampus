@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_ws_pocketcampus';
 $plugin->release = '0.9.0';
-$plugin->version = 2021031100;
+$plugin->version = 2021031500;
 $plugin->requires = 2020110900;
 $plugin->maturity = MATURITY_BETA;

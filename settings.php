@@ -31,6 +31,11 @@ if ($hassiteconfig) {
 
         $settings->add(new admin_setting_configpasswordunmask('local_ws_pocketcampus/secret',
             new lang_string('secret', 'local_ws_pocketcampus'), new lang_string('secretdesc', 'local_ws_pocketcampus'), ''));
+
+        // IP address.
+        $settings->add(new admin_setting_configtext('local_ws_pocketcampus/subnet', get_string('requiresubnet', 'local_ws_pocketcampus'),
+            get_string('requiresubnet_desc', 'local_ws_pocketcampus'), '', PARAM_TEXT));
+
         $ADMIN->add('localplugins', $settings);
     }
 }
