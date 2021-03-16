@@ -1,8 +1,26 @@
 # BFH PocketCampus Authentication Webservice #
 
-TODO Describe the plugin shortly here.
+The plugin will return the moodle token for the specified user.
 
-TODO Provide more detailed description here.
+This plugin returns the moodle token for a specified user by authenticating the requesting server instead of the users themselves. This is achieved by providing the plugin with a shared secret.
+
+The requesting server is expected to provide the following:
+- pcsecret: the shared secret to authenticate the source of the request.
+- user_id: should match the username field in the moodle profile.
+- service: should match a service that is enabled.
+
+example:https://moodle-example.com/local/ws_pocketcampus/pocketcampus_token.php?pcsecret=example_secret&user_id=example_id&service=moodle_mobile_app
+
+If the request fails, you may get one of these error codes:
+- enablewsdescription: you are using the moodle_mobile_app service while it is disabled.
+- servicenotavailable: you are using a different service that is either disabled or doesn't exist.
+- invalidsecret: you are providing a wrong secret.
+- usernamenotfound: the user_id provided doesn't exist.
+- sitemaintenance: moodle is in maintenance mode and the requested user does not have maintenance access.
+- noguest: requested user is a guest.
+- usernotconfirmed: requested user has not been confirmed.
+- passwordisexpired: requested user's password has expired.
+- invalidsubnet: the ip of the requesting server is not allowed.
 
 ## Installing via uploaded ZIP file ##
 
